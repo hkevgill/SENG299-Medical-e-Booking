@@ -7,19 +7,33 @@
       <script src="phonegap.js" type="text/javascript" charset="utf-8"></script>
 
     <link rel="stylesheet" href="jq/jquery.mobile-1.4.2.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="css/ui-lightness/jquery-ui-1.10.4.css" rel="stylesheet">
 
     <script type="text/javascript" src="jq/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="jq/jquery.mobile-1.4.2.min.js"></script>
+    <script src="jq/jquery-ui-1.10.4.js"></script>
+    <script>
+    $(function() {
+
+      $( "#datepicker" ).datepicker({
+        inline: true
+      });
+
+    });
+    </script>
 
   </head>
   <body>
-    <div data-role="page" id="calendarPage">
+    <div data-role="page2" id="calendarPage" data-add-back-btn="true">
 
       <div data-role="header">
-        <h1>Book an Appointment</h1>
+        <h1>Appointment Date</h1>
       </div>
+
+      <h2>Select a Day</h2>
+      <div id="datepicker" class="centerCal"></div>
 
     </div>
 
