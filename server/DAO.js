@@ -7,7 +7,8 @@ var mongoose = require("mongoose");
 var schemas = {
   appointment: mongoose.Schema({
       appointment_id:"number",
-      date:{ type: Date, default: Date.now},
+      active: {type: Boolean, default: true},
+      date: "Date",
       physician:"string",
       description:"string",
       netlink_id:"string"
@@ -50,9 +51,13 @@ function create(type, object){
   });
 }
 
-function read(){
-
-
+function read(type, search){
+  var query = models[type].find(search);
+  query.exec(function(err){
+    if (err){
+      throw JSON.stringify(err);
+    }
+  });
 }
 
 function update(){
@@ -66,3 +71,4 @@ function remove(){ // delete is a keyword?
 }
 // Export the functions so they are available outside of this module
 exports.create = create;
+exports.read = read;
