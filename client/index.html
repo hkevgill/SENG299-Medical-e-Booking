@@ -14,13 +14,18 @@
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="jq/jquery.mobile-1.4.2.min.js"></script>
     <script src="jq/jquery-ui-1.10.4.js"></script>
-    <script>
-    $(function() {
-
-      $( "#datepicker" ).datepicker({
-        inline: true
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        inline: true,
+        onSelect: function(){
+          var day = $("#datepicker").datepicker('getDate').getDate();
+          var month = $("#datepicker").datepicker('getDate').getMonth() + 1;
+          var year = $("#datepicker").datepicker('getDate').getFullYear();
+          var fullDate = year + "-" + month + "-" + day;
+        }
       });
-
     });
     </script>
 
@@ -59,7 +64,7 @@
       </div> <!-- End Header -->
 
       <div data-role="main" id="datepicker" class="centerCal"> <!-- Start Main -->
-        <h2>Select a Day</h2>
+        <h2 align="center">Select a Day</h2>
       </div> <!-- End Main -->
 
       <div data-role="footer"> <!-- Start Footer -->
