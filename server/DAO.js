@@ -43,7 +43,7 @@ mongoose.connect("mongodb://seng299projectapp:projectapppassword@ds048537.mongol
 // Here we put the basic CRUD operations, and any other
 // fancy data access functions we want to make available
 function create(type, object){
-  var data = new models[type](object.data);
+  var data = new models[type](object);
   data.save(function(err){
     if(err){
       throw JSON.stringify(err);
