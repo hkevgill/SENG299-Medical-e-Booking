@@ -14,10 +14,11 @@
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="jq/jquery.mobile-1.4.2.min.js"></script>
     <script src="jq/jquery-ui-1.10.4.js"></script>
+    <script type="text/javascript" src="controller.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
       $('#datepicker').datepicker({
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'yy-mm-dd',        
         inline: true,
         onSelect: function(){
           var day = $("#datepicker").datepicker('getDate').getDate();
@@ -25,6 +26,12 @@
           var year = $("#datepicker").datepicker('getDate').getFullYear();
           var fullDate = year + "-" + month + "-" + day;
         }
+      });
+
+      $('#bookAppointment').click(function(){
+        var physician = $("#select-physician").value;
+        var time = $("#select-time").value;
+        console.log(physician);
       });
     });
     </script>
@@ -115,21 +122,21 @@
         <h1>Book Appointment</h1>
 
 <!-- FIX -->
-        <a href="#confirmAppointmentPage" class="ui-btn-right" data-icon="arrow-r" data-iconpos="notext" data-direction="forward">Next</a>
+        <a href="#confirmAppointmentPage" id="bookAppointment" class="ui-btn-right" data-icon="arrow-r" data-iconpos="notext" data-direction="forward">Next</a>
       </div> <!-- End Header -->
 
       <div data-role="main"> <!-- Start Main -->
         <div data-role="fieldcontain">
-          <label for="select-choice-0" class="select">Physician:</label>
-          <select name="select-choice-0" id="select-choice-1">
+          <label for="select-physician" class="select">Physician:</label>
+          <select name="select-physician" id="select-physician">
             <option value="drjones">Dr. Jones</option>
             <option value="jones">Jones</option>
             <option value="callingjones">Calling Dr. Jones</option>
           </select>
         </div>
         <div data-role="fieldcontain">
-          <label for="select-choice-1" class="select">Appointment Time:</label>
-          <select name="select-choice-1" id="select-choice-1">
+          <label for="select-time" class="select">Appointment Time:</label>
+          <select name="select-time" id="select-time">
             <option value="9:30">9:30</option>
             <option value="10:00">10:00</option>
             <option value="10:30">10:30</option>
