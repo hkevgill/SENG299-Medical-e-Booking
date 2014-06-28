@@ -42,8 +42,8 @@ mongoose.connect("mongodb://seng299projectapp:projectapppassword@ds048537.mongol
 
 // Here we put the basic CRUD operations, and any other
 // fancy data access functions we want to make available
-function create(type, object){
-  var data = new models[type](object);
+function create(type, dataObj){
+  var data = new models[type](dataObj.data);
   data.save(function(err){
     if(err){
       throw JSON.stringify(err);
@@ -52,10 +52,16 @@ function create(type, object){
 }
 
 function read(type, search){
-  var query = models[type].find(search);
-  query.exec(function(err){
-    if (err){
+  models[type].find(search, function(err, result){
+    if(err){
       throw JSON.stringify(err);
+    }else{
+      if(result == null){
+        console.log("Error: result not found for query" + search);
+        completeResponse(dataObj, 404, "json", "");
+      }else{
+        completeResponse(dataObj, 200, "json", JSON.stringify(result));
+      }
     }
   });
 }
