@@ -27,12 +27,18 @@ var schemas = {
     event_description:"string",
     netlink_id:"string"
   })
+  slot: mongoose.Schema({
+    date: "Date",
+    physician: "string",
+    booked: "boolean"
+  })
 };
 
 var models = {
   appointment: mongoose.model("appointment", schemas.appointment),
   user: mongoose.model("user", schemas.user),
-  fiesta: mongoose.model("fiesta", schemas.fiesta)
+  fiesta: mongoose.model("fiesta", schemas.fiesta),
+  slot: mongoose.model("slot", schemas.slot)
 }
 
 // Connect to the database. We could later store these paramaters
