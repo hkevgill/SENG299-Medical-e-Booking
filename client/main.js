@@ -23,4 +23,4 @@ $(document).ready(function(){
         console.log(physician);
         console.log(time);
       });
-    });
+});
