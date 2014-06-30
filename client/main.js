@@ -8,8 +8,6 @@ $(document).ready(function(){
           var month = $("#datepicker").datepicker('getDate').getMonth() + 1;
           var year = $("#datepicker").datepicker('getDate').getFullYear();
           var fullDate = year + "-" + month + "-" + day;
-
-          console.log(fullDate);
         }
       });
 
@@ -19,8 +17,7 @@ $(document).ready(function(){
 
         var selectTime = document.getElementById('select-time');
         var time = selectTime.options[selectTime.selectedIndex].value;
-
-        console.log(physician);
-        console.log(time);
+        
+        $('#myPhys').html(physician);
       });
 });
