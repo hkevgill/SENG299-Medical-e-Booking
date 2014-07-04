@@ -6,7 +6,7 @@ function appointmentHandler(dataObj){
   if(dataObj.request.method == "POST"){
     // Get the body content
     var body = "";
-    dataObj.request.on("data", function(data)){
+    dataObj.request.on("data", function(data){
       body += data;
     });
     dataObj.request.on("end", function(){
