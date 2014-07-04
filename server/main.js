@@ -1,7 +1,12 @@
 // This file is the server which handles requests from the client
 
 var http = require("http");
+var url = require("url");
 var DAO = require("./DAO");
+var requestHandlers = require("./requestHandlers.js");
+
+var handle = {};
+requestHandlers.setHandle(handle);
 
 var requestID = 1;
 
@@ -14,6 +19,31 @@ function server(request, response){
       response: response,
       data: null,
       identifier: null
+    }
+
+    // This covers a weird case where teh client is on firefox
+    if(request.method == 'OPTIONS'){
+      response.writeHead(
+        200, {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+          "Access-Control-Max-Age": "1000",
+          "Access-Control-Allow-Headers": "origin,x-csrftoken,content-type,accept"
+        }
+      );
+      response.end();
+      return;
+    }
+
+    // Here we route the request to the associated request handler
+    var pathname = url.parse(request.url).pathname;
+    if(typeof handle[pathname] == 'function'){
+      handle[pathname](dataObj);
+    }else{
+      response.writeHead(404, {"Content-Type": "text/plain"});
+      response.write("404 not found");
+      response.end();
     }
 
   }catch(err){

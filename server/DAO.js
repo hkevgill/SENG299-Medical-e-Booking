@@ -26,7 +26,7 @@ var schemas = {
     event_time: {type: Date, default: Date.now},
     event_description:"string",
     netlink_id:"string"
-  })
+  }),
   slot: mongoose.Schema({
     date: "Date",
     physician: "string",
@@ -55,6 +55,7 @@ function create(type, dataObj){
       throw JSON.stringify(err);
     }
   });
+  completeResponse(dataObj, 200, "text", "");
 }
 
 function read(type, search){
