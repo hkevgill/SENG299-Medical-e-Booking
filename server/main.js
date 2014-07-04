@@ -67,4 +67,4 @@ completeResponse = function(dataObj, statusCode, contentType, content){
 }
 
 var server = http.createServer(server);
-server.listen("80", "127.0.0.1");
+server.listen("8888", "127.0.0.1");
