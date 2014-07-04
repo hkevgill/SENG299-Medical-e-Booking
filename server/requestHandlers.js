@@ -15,7 +15,7 @@ function appointmentHandler(dataObj){
       }
       dataObj.data = JSON.parse(body);
       DAO.create("appointment", dataObj);
-    })
+    });
   }
 
 
