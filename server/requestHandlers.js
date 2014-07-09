@@ -17,7 +17,9 @@ function appointmentHandler(dataObj){
       DAO.create("appointment", dataObj);
     });
   }
+}
 
+function genericPost(type, dataObj){
 
 }
 

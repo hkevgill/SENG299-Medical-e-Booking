@@ -14,14 +14,16 @@ function server(request, response){
   try{
 
     var dataObj = {
-      id : new Date().getTime() + requestId,
+      id : new Date().getTime() + requestID,
       request: request,
       response: response,
       data: null,
       identifier: null
     }
 
-    // This covers a weird case where teh client is on firefox
+    requestID += 1;
+
+    // This covers a weird case where the client is on firefox
     if(request.method == 'OPTIONS'){
       response.writeHead(
         200, {

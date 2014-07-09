@@ -22,7 +22,6 @@ var schemas = {
   }),
   //I think event is a keyword, so i called account events "fiestas"
   fiesta: mongoose.Schema({
-    event_id:"number",
     event_time: {type: Date, default: Date.now},
     event_description:"string",
     netlink_id:"string"
