@@ -19,9 +19,10 @@ function appointmentHandler(dataObj){
   }
 }
 
-function genericPost(type, dataObj){
-
-}
+// If we want to remove code duplication, do this!
+// function genericPost(type, dataObj){
+//
+// }
 
 // Here we associate all the request handlers to the passed handle object
 // so we can call the handlers in main
