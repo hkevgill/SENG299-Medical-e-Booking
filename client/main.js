@@ -22,4 +22,8 @@ $(document).ready(function(){
         $('#myPhys').html(physician.text);
         $('#myApptTime').html(time.text);
       });
-});
+
+//       $('#loginForm:#submitButton').click(function(){
+//            // go to home page. That selector isn't right either.
+//       })
+// });

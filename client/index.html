@@ -20,6 +20,38 @@
   <body>
 
 
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - Start of login page - - - - - - - - - - - - -  - - - - - - - - - - - - -->
+    <div data-role="page" id="loginPage">
+
+      <div data-role="header"> <!-- Start Header -->
+        <h1>Login</h1>
+      </div> <!-- End Header -->
+
+      <div data-role="main" class="ui-content"> <!-- Start Main -->
+
+       <form id="loginForm">
+          <div data-role="fieldcontain" class="ui-hide-label">
+              <label for="username">Username:</label>
+              <input type="text" name="username" id="username" value="" placeholder="Username" />
+          </div>
+
+          <div data-role="fieldcontain" class="ui-hide-label">
+              <label for="password">Password:</label>
+              <input type="password" name="password" id="password" value="" placeholder="Password" />
+          </div>
+
+          <!-- The <a href> is a work-around until the proper submit validation stuff is done -->
+          <a href="#homePage"><input type="submit" value="Login" id="submitButton"></a>
+        </form>
+
+      </div> <!-- End Main -->
+
+      <div data-role="footer"> <!-- Start Footer -->
+      </div> <!-- End Footer -->
+
+    </div> 
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - End of login page - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - Start of first page - - - - - - - - - - - - -  - - - - - - - - - - - - -->
     <div data-role="page" id="homePage">
@@ -44,7 +76,6 @@
 
     </div> 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - End of first page - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
 
 
 
