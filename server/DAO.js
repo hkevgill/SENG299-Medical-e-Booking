@@ -57,7 +57,7 @@ function create(type, dataObj){
   completeResponse(dataObj, 200, "text", "");
 }
 
-function read(type, search){
+function read(type, search, dataObj){
   models[type].find(search, function(err, result){
     if(err){
       throw JSON.stringify(err);
