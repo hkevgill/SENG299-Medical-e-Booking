@@ -63,7 +63,10 @@ completeResponse = function(dataObj, statusCode, contentType, content){
     ct = "application/json";
   }
   dataObj.response.writeHead(
-    statusCode, {"Content-Type": ct}
+    statusCode, {
+      "Content-Type": ct,
+      "Access-Control-Allow-Origin": "*"
+    }
   );
   dataObj.response.end(content);
 }
