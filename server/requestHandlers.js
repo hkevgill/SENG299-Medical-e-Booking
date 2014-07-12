@@ -90,6 +90,17 @@ function fiestaHandler(dataObj){
   }
 }
 
+// LoginHandler - Usage: GET <url>:<port>/login?netlink_id=<netlink>&netlink_password=<pass>
+// If this does not return an empty list, then it will return the user object
+// If it returns an empty list, username and passwort combo was wrong
+function loginHandler(dataObj){
+  if(dataObj.request.method == "GET"){
+    var urlparts = url.parse(dataObj.request.url, true);
+    var query = urlparts.query;
+    DAO.read("user", query, dataObj);
+  }
+}
+
 // If we want to remove code duplication, do this!
 // function genericPost(type, dataObj){
 //
@@ -100,7 +111,8 @@ function fiestaHandler(dataObj){
 function setHandle(handle){
   handle['/appointment'] = appointmentHandler;
   handle['/slot'] = slotHandler;
-  handle['/fiesta'] = fiestaHandler
+  handle['/fiesta'] = fiestaHandler;
+  handle['/login'] = loginHandler;
 }
 
 exports.setHandle = setHandle;
