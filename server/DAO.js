@@ -81,11 +81,17 @@ function update(type, search, dataObj){
   });
 }
 
-function remove(){ // delete is a keyword?
-
-
+function remove(type, search, dataObj){ // delete is a keyword?
+  models[type].find(search).remove(function(err, result){
+    if(err){
+      throw JSON.stringify(err);
+    }else{
+      completeResponse(dataObj, 200, "text", "");
+    }
+  });
 }
 // Export the functions so they are available outside of this module
 exports.create = create;
 exports.read = read;
 exports.update = update;
+exports.remove = remove;

@@ -21,8 +21,15 @@ function appointmentHandler(dataObj){
   // USAGE: GET <url>:<port>/appointment?netlink_id=<netlink>
   if(dataObj.request.method == "GET"){
     var urlparts = url.parse(dataObj.request.url, true);
-    var netlink_id = urlparts.query;
-    DAO.read("appointment", netlink_id, dataObj);
+    var query = urlparts.query;
+    DAO.read("appointment", query, dataObj);
+  }
+  // Handle DELETE request
+  // USAGE: DELETE <url>:<port>/appointment?_id=53c1c269b1930c0a232460f1
+  if(dataObj.request.method == "DELETE"){
+    var urlparts = url.parse(dataObj.request.url, true);
+    var query = urlparts.query;
+    DAO.remove("appointment", query, dataObj);
   }
 }
 
