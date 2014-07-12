@@ -6,7 +6,6 @@ var mongoose = require("mongoose");
 
 var schemas = {
   appointment: mongoose.Schema({
-      appointment_id:"number",
       active: {type: Boolean, default: true},
       date: "Date",
       physician:"string",
