@@ -101,6 +101,23 @@ function loginHandler(dataObj){
   }
 }
 
+function userHandler(dataObj){
+  if(dataObj.request.method == "POST"){
+    // Get the body content
+    var body = "";
+    dataObj.request.on("data", function(data){
+      body += data;
+    });
+    dataObj.request.on("end", function(){
+      if(body == null){
+        body = "";
+      }
+      dataObj.data = JSON.parse(body);
+      DAO.create("user", dataObj);
+    });
+  }
+}
+
 // If we want to remove code duplication, do this!
 // function genericPost(type, dataObj){
 //
@@ -113,6 +130,7 @@ function setHandle(handle){
   handle['/slot'] = slotHandler;
   handle['/fiesta'] = fiestaHandler;
   handle['/login'] = loginHandler;
+  handle['/user'] = userHandler;
 }
 
 exports.setHandle = setHandle;
