@@ -17,6 +17,8 @@ function appointmentHandler(dataObj){
       DAO.create("appointment", dataObj);
     });
   }
+  // Handle GET request
+  // USAGE: GET <url>:<port>/appointment?netlink_id=<netlink>
   if(dataObj.request.method == "GET"){
     var urlparts = url.parse(dataObj.request.url, true);
     var netlink_id = urlparts.query;
@@ -29,6 +31,37 @@ function slotsHandler(dataObj){
   if(dataObj.request.method == "GET"){
     // This means we want to search for all slots where booked = false
     DAO.read("slot", {booked: false}, dataObj);
+  }
+  // Handle POST request to create a new slot
+  if(dataObj.request.method == "POST"){
+    // Get the body content
+    var body = "";
+    dataObj.request.on("data", function(data){
+      body += data;
+    });
+    dataObj.request.on("end", function(){
+      if(body == null){
+        body = "";
+      }
+      dataObj.data = JSON.parse(body);
+      DAO.create("slot", dataObj);
+    });
+  }
+  // Handle PUT request to update a slot
+  if(dataObj.request.method == "PUT"){
+    var body = "";
+    dataObj.request.on("data", function(data){
+      body += data;
+    });
+    dataObj.request.on("end", function(){
+      if(body == null){
+        body = "";
+      }
+      dataObj.data = JSON.parse(body);
+      var urlparts = url.parse(dataObj.request.url, true);
+      var query = urlparts.query;
+      DAO.update("slot", query, dataObj);
+    });
   }
 }
 

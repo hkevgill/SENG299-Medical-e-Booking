@@ -71,9 +71,14 @@ function read(type, search, dataObj){
   });
 }
 
-function update(){
-
-
+function update(type, search, dataObj){
+  models[type].update(search, {$set: dataObj.data}, function(err, result){
+    if(err){
+      throw JSON.stringify(err);
+    }else{
+      completeResponse(dataObj, 200, "text", "");
+    }
+  });
 }
 
 function remove(){ // delete is a keyword?
@@ -83,3 +88,4 @@ function remove(){ // delete is a keyword?
 // Export the functions so they are available outside of this module
 exports.create = create;
 exports.read = read;
+exports.update = update;
