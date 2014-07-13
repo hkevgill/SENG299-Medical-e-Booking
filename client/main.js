@@ -102,5 +102,17 @@ function deleteAppointment(){
   });
 }
 
+function sendAppointmentFiesta(){
+
+  var fies = {event_description:'Booked an appointment', netlink_id:userLogin};
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'post',
+    url: serverURL+'/fiesta',
+    data: JSON.stringify(fies),
+    dataType: 'json',
+  });
+}
 
 
