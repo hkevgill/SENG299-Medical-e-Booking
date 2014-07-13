@@ -53,10 +53,11 @@ function create(type, dataObj){
   var data = new models[type](dataObj.data);
   data.save(function(err){
     if(err){
-      throw JSON.stringify(err);
+      completeResponse(dataObj, 500, "text", "");
+    }else{
+      completeResponse(dataObj, 200, "text", "");
     }
   });
-  completeResponse(dataObj, 200, "text", "");
 }
 
 function read(type, search, dataObj){
