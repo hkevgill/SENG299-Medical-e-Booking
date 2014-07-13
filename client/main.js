@@ -40,12 +40,11 @@ $(document).ready(function(){
 
       var jsonLength = Object.keys(temp2).length;
 
+      $('#appointmentList').html("");
       for (var i = 0; i < jsonLength; i++) {
         $("#appointmentList").append('<li id="appointment'+i+'"></li>');
         $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" with "+temp2[i]["physician"]);
         $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
-
-        console.log(i);
       } 
 
     });
@@ -54,7 +53,6 @@ $(document).ready(function(){
   $('#submitButton').click(function(){
     userLogin = $('#username').val();
     userPassword = $('#password').val();
-
     console.log(userLogin);
     console.log(userPassword);
   });
