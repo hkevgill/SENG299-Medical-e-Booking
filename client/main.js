@@ -85,7 +85,7 @@ function sendAppointment(){
 
   key = fullDate+'/'+phys.text+'/'+time.text;
 
-  var data = {key:key, date:fullDate, time:time.text, physician:phys.text, description:description, netlink_id:"joe"};
+  var data = {key:key, date:fullDate, time:time.text, physician:phys.text, description:description, netlink_id:userLogin};
 
   $.ajax({
     contentType: 'applications/json',
