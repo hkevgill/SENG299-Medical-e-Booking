@@ -6,12 +6,13 @@ var mongoose = require("mongoose");
 
 var schemas = {
   appointment: mongoose.Schema({
-      active: {type: Boolean, default: true},
-      date: "string",
-      time: "string",
-      physician:"string",
-      description:"string",
-      netlink_id:"string"
+    key: {type: "string", unique: true},
+    active: {type: Boolean, default: true},
+    date: "string",
+    time: "string",
+    physician:"string",
+    description:"string",
+    netlink_id:"string"
   }),
   user: mongoose.Schema({
     netlink_id:"string",
