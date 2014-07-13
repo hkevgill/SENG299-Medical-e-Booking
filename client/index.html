@@ -152,7 +152,8 @@
       <div data-role="main"> <!-- Start Main -->
         <div data-role="fieldcontain" class="centerField">
           <label for="select-physician" class="select">Physician:</label>
-          <select name="select-physician" id="select-physician">
+          <select name="select-physician" onChange="changeSelection()" id="select-physician">
+            <option disabled selected>Select a Physician</option>
             <option value="drjones">Dr. Jones</option>
             <option value="drmeyer">Dr. Meyer</option>
             <option value="drthompson">Dr. Thompson</option>
@@ -161,7 +162,8 @@
         </div>
         <div data-role="fieldcontain" class="centerField">
           <label for="select-time" class="select">Appointment Time:</label>
-          <select name="select-time" id="select-time">
+          <select name="select-time" onChange="changeSelection()" id="select-time">
+            <option disabled selected>Select a Time</option>
             <option value="8:30">8:30</option>
             <option value="9:00">9:00</option>
             <option value="9:30">9:30</option>
@@ -182,7 +184,7 @@
         </div>
         <div data-role="fieldcontain" class="centerField">
           <label for="reason">Reason for Visit:</label>
-          <input type="text" reason="reason" id="reason" value="" />
+          <input type="text" reason="reason" id="reason" value="" onkeydown="getDescription()" />
         </div>
       </div> <!-- End Main -->
 

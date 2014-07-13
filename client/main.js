@@ -2,32 +2,26 @@
 
 var serverURL = "http://127.0.0.1:8888"
 
-var fullDate;
+var today = new Date();
+var day = today.getDate();
+var month = (today.getMonth()+1);
+var year = today.getFullYear();
+var fullDate = year+'-'+month+'-'+day;
 var phys;
 var time;
+var description;
 
 $(document).ready(function(){
   $('#datepicker').datepicker({
     dateFormat: 'yy-mm-dd',        
     inline: true,
     onSelect: function(){
-      var day = $("#datepicker").datepicker('getDate').getDate();
-      var month = $("#datepicker").datepicker('getDate').getMonth() + 1;
-      var year = $("#datepicker").datepicker('getDate').getFullYear();
+      day = $("#datepicker").datepicker('getDate').getDate();
+      month = $("#datepicker").datepicker('getDate').getMonth() + 1;
+      year = $("#datepicker").datepicker('getDate').getFullYear();
       fullDate = year + "-" + month + "-" + day;
       $('#myDate').html(fullDate);
     }
-  });
-
-  $('#bookAppointment').click(function(){
-    var selectPhys = document.getElementById('select-physician');
-    phys = selectPhys.options[selectPhys.selectedIndex];
-
-    var selectTime = document.getElementById('select-time');
-    time = selectTime.options[selectTime.selectedIndex];
-        
-    $('#myPhys').html(phys.text);
-    $('#myApptTime').html(time.text);
   });
 
 //       $('#loginForm:#submitButton').click(function(){
@@ -35,15 +29,26 @@ $(document).ready(function(){
 //       })
 });
 
+function getDescription(){
+  description = document.getElementById("reason").value;
+  $('#myRfV').html(description);
+}
+
+function changeSelection(){
+  var selectPhys = document.getElementById('select-physician');
+  phys = selectPhys.options[selectPhys.selectedIndex];
+
+  var selectTime = document.getElementById('select-time');
+  time = selectTime.options[selectTime.selectedIndex];
+
+  $('#myDate').html(fullDate);
+  $('#myPhys').html(phys.text);
+  $('#myApptTime').html(time.text);
+}
+
 function sendAppointment(){
 
-  console.log(typeof(phys.text));
-  console.log(phys.text);
-
-  var data = {date:fullDate, physician:phys.text, description:"NONE",netlink_id:"JOEY"};
-
-
-  console.log(JSON.stringify(data));
+  var data = {date:fullDate, physician:phys.text, description:description, netlink_id:"joe"};
 
   $.ajax({
     contentType: 'applications/json',
@@ -54,9 +59,6 @@ function sendAppointment(){
   });
 
 }
-
-//2014070421250500
-
 
 
 
