@@ -24,6 +24,26 @@ $(document).ready(function(){
     }
   });
 
+  $('#viewAppoints').click(function(){
+    jsonStuff = $.getJSON("http://127.0.0.1:8888/appointment?netlink_id=JOEY", function(){
+      var temp = jsonStuff["responseText"];
+      var temp2 = JSON.parse(temp);
+
+      console.log(Object.keys(temp2).length);
+      console.log(temp2[0]["netlink_id"]);
+
+      var jsonLength = Object.keys(temp2).length;
+
+      for (var i = 0; i < jsonLength; i++) {
+        $("#appointmentList").append('<li id="appointment'+i+'"></li>');
+        $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" with "+temp2[i]["physician"]);
+
+        console.log(i);
+      } 
+
+    });
+  });
+
 //       $('#loginForm:#submitButton').click(function(){
 //            // go to home page. That selector isn't right either.
 //       })
