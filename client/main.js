@@ -10,6 +10,7 @@ var fullDate = year+'-'+month+'-'+day;
 var phys;
 var time;
 var description;
+var key;
 
 $(document).ready(function(){
   $('#datepicker').datepicker({
@@ -68,9 +69,9 @@ function changeSelection(){
 
 function sendAppointment(){
 
-  console.log(typeof(time));
+  key = fullDate+'/'+phys.text+'/'+time.text;
 
-  var data = {date:fullDate, time:time.text, physician:phys.text, description:description, netlink_id:"joe"};
+  var data = {key:key, date:fullDate, time:time.text, physician:phys.text, description:description, netlink_id:"joe"};
 
   $.ajax({
     contentType: 'applications/json',
@@ -80,6 +81,13 @@ function sendAppointment(){
     dataType: 'json',
   });
 
+}
+
+function deleteAppointment(){
+  $.ajax({
+    type: 'delete',
+    url: serverURL+'/appointment?key='+key,
+  });
 }
 
 
