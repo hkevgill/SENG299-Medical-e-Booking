@@ -64,7 +64,8 @@ function create(type, dataObj){
 function read(type, search, dataObj){
   models[type].find(search, function(err, result){
     if(err){
-      throw JSON.stringify(err);
+      console.log(JSON.stringify(err));
+      completeResponse(dataObj, 500, "text", "")
     }else{
       if(JSON.stringify(result) == "[]"){
         console.log("Error: result not found for query" + JSON.stringify(search));
