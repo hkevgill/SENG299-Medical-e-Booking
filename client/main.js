@@ -1,7 +1,9 @@
 // This is the main file for javascript functions used by the client
 
+var serverURL = "http://127.0.0.1:8888"
+
 var fullDate;
-var physician;
+var phys;
 var time;
 
 $(document).ready(function(){
@@ -19,12 +21,12 @@ $(document).ready(function(){
 
   $('#bookAppointment').click(function(){
     var selectPhys = document.getElementById('select-physician');
-    physician = selectPhys.options[selectPhys.selectedIndex];
+    phys = selectPhys.options[selectPhys.selectedIndex];
 
     var selectTime = document.getElementById('select-time');
     time = selectTime.options[selectTime.selectedIndex];
         
-    $('#myPhys').html(physician.text);
+    $('#myPhys').html(phys.text);
     $('#myApptTime').html(time.text);
   });
 
@@ -32,3 +34,29 @@ $(document).ready(function(){
 //            // go to home page. That selector isn't right either.
 //       })
 });
+
+function sendAppointment(){
+
+  console.log(typeof(phys.text));
+  console.log(phys.text);
+
+  var data = {date:fullDate, physician:phys.text, description:"NONE",netlink_id:"JOEY"};
+
+
+  console.log(JSON.stringify(data));
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'post',
+    url: serverURL+'/appointment',       
+    data: JSON.stringify(data),
+    dataType: 'json',
+  });
+
+}
+
+//2014070421250500
+
+
+
+
