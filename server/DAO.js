@@ -7,7 +7,8 @@ var mongoose = require("mongoose");
 var schemas = {
   appointment: mongoose.Schema({
       active: {type: Boolean, default: true},
-      date: "Date",
+      date: "string",
+      time: "string",
       physician:"string",
       description:"string",
       netlink_id:"string"
@@ -26,7 +27,8 @@ var schemas = {
     netlink_id:"string"
   }),
   slot: mongoose.Schema({
-    date: "Date",
+    date: "string",
+    time: "string",
     physician: "string",
     booked: "boolean"
   })
