@@ -28,7 +28,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#viewAppoints').click(function(){
+  $('#viewAppoints, #confirmAppoint').click(function(){
     jsonStuff = $.getJSON(serverURL+"/appointment?netlink_id="+userLogin, function(){
       var temp = jsonStuff["responseText"];
       var temp2 = JSON.parse(temp);
@@ -45,6 +45,7 @@ $(document).ready(function(){
         $("#appointmentList").append('<li id="appointment'+i+'"></li>');
         $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" with "+temp2[i]["physician"]);
         $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
+        
       } 
 
     });
@@ -53,8 +54,6 @@ $(document).ready(function(){
   $('#submitButton').click(function(){
     userLogin = $('#username').val();
     userPassword = $('#password').val();
-    console.log(userLogin);
-    console.log(userPassword);
   });
 
 //       $('#loginForm:#submitButton').click(function(){
