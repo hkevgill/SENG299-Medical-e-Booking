@@ -68,7 +68,9 @@ function changeSelection(){
 
 function sendAppointment(){
 
-  var data = {date:fullDate, physician:phys.text, description:description, netlink_id:"joe"};
+  console.log(typeof(time));
+
+  var data = {date:fullDate, time:time.text, physician:phys.text, description:description, netlink_id:"joe"};
 
   $.ajax({
     contentType: 'applications/json',
