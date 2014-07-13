@@ -53,6 +53,7 @@ function create(type, dataObj){
   var data = new models[type](dataObj.data);
   data.save(function(err){
     if(err){
+      console.log(JSON.stringify(err));
       completeResponse(dataObj, 500, "text", "");
     }else{
       completeResponse(dataObj, 200, "text", "");
@@ -65,8 +66,8 @@ function read(type, search, dataObj){
     if(err){
       throw JSON.stringify(err);
     }else{
-      if(result == null){
-        console.log("Error: result not found for query" + search);
+      if(JSON.stringify(result) == "[]"){
+        console.log("Error: result not found for query" + JSON.stringify(search));
         completeResponse(dataObj, 404, "json", "");
       }else{
         completeResponse(dataObj, 200, "json", JSON.stringify(result));
@@ -78,7 +79,8 @@ function read(type, search, dataObj){
 function update(type, search, dataObj){
   models[type].update(search, {$set: dataObj.data}, function(err, result){
     if(err){
-      throw JSON.stringify(err);
+      console.log(JSON.stringify(err));
+      completeResponse(dataObj, 500, "text", "");
     }else{
       completeResponse(dataObj, 200, "text", "");
     }
@@ -88,7 +90,8 @@ function update(type, search, dataObj){
 function remove(type, search, dataObj){ // delete is a keyword?
   models[type].find(search).remove(function(err, result){
     if(err){
-      throw JSON.stringify(err);
+      console.log(JSON.stringify(err));
+      completeResponse(dataObj, 500, "text", "");
     }else{
       completeResponse(dataObj, 200, "text", "");
     }
