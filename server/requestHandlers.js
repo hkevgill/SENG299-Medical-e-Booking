@@ -93,7 +93,7 @@ function fiestaHandler(dataObj){
   if(dataObj.request.method == "GET"){
     var urlparts = url.parse(dataObj.request.url, true);
     var netlink_id = urlparts.query;
-    DAO.read("appointment", netlink_id, dataObj);
+    DAO.read("fiesta", netlink_id, dataObj);
   }
 }
 
