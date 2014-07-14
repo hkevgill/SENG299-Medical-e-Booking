@@ -61,7 +61,7 @@ $(document).ready(function(){
       $('#historyList').html("");
       for (var i = 0; i < jsonLength; i++) {
         $("#historyList").append('<li id="fiesta'+i+'"></li>');
-        $("#fiesta"+i).html(temp2[i]["event_description"]+" at "+temp2[i]["event_time"]);
+        $("#fiesta"+i).html(temp2[i]["event_description"]+":  "+temp2[i]["event_time"]);
         
       } 
 
@@ -152,7 +152,7 @@ function sendAppointmentFiesta(){
 
 function sendLoginFiesta(){
 
-  var fies = {event_description:'Logged in.', netlink_id:userLogin};
+  var fies = {event_description:'Logged in', netlink_id:userLogin};
 
   $.ajax({
     contentType: 'applications/json',
