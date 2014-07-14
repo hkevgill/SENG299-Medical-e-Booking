@@ -77,6 +77,7 @@ function verifyLogin(){
         var temp = jsonLogin["responseText"];
         var temp2 = JSON.parse(temp);
         if(temp2[0]["netlink_password"] == userPassword){
+          sendLoginFiesta();
           window.location.href = '#homePage';
         }
     });
@@ -148,6 +149,19 @@ function deleteAppointment(){
 function sendAppointmentFiesta(){
 
   var fies = {event_description:'Booked an appointment', netlink_id:userLogin};
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'post',
+    url: serverURL+'/fiesta',
+    data: JSON.stringify(fies),
+    dataType: 'json',
+  });
+}
+
+function sendLoginFiesta(){
+
+  var fies = {event_description:'Logged in.', netlink_id:userLogin};
 
   $.ajax({
     contentType: 'applications/json',
