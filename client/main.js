@@ -54,15 +54,45 @@ $(document).ready(function(){
     });
   });
 
-  $('#submitButton').click(function(){
-    userLogin = $('#username').val();
-    userPassword = $('#password').val();
-  });
+  // $('#submitButton').click(function(){
+  //   userLogin = $('#username').val();
+  //   userPassword = $('#password').val();
+  //   console.log(userLogin);
+  //   console.log(userPassword);
+  // });
 
 //       $('#loginForm:#submitButton').click(function(){
 //            // go to home page. That selector isn't right either.
 //       })
 });
+
+function verifyLogin(){
+
+    userLogin = $('#username').val();
+    userPassword = $('#password').val();
+    console.log(userLogin);
+    console.log(userPassword);
+
+    jsonLogin = $.getJSON(serverURL+"/login?netlink_id="+userLogin, function(){
+        var temp = jsonLogin["responseText"];
+        var temp2 = JSON.parse(temp);
+        if(temp2[0]["netlink_password"] == userPassword){
+          window.location.href = '#homePage';
+        }
+    });
+    // .success(function(){  console.log("success"); })
+    // .error(function(){  console.log("error"); })
+    // .fail(function(){  console.log("fail"); 
+    // });
+
+      // statusCode: {
+      // 200: function(response){
+      //   var temp = jsonLogin["responseText"];
+      //   var temp2 = JSON.parse(temp);
+      //   window.location.href = '#homePage';
+      // },
+
+}
 
 function getDescription(){
   description = document.getElementById("reason").value;
