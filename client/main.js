@@ -82,7 +82,12 @@ function verifyLogin(){
         if(temp2[0]["netlink_password"] == userPassword){
           sendLoginFiesta();
           window.location.href = '#homePage';
+        } else {
+          alert("Username or password is incorrect.");
         }
+    })
+    .fail(function(){
+      alert("Username or password is incorrect.");
     });
 }
 
