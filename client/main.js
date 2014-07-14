@@ -18,6 +18,7 @@ var userLogin;
 var userPassword;
 
 $(document).ready(function(){
+  $("#datepicker").datepicker({ minDate: 0 });
   $('#datepicker').datepicker({
     dateFormat: 'yy-mm-dd',        
     inline: true,
