@@ -35,18 +35,14 @@ $(document).ready(function(){
     jsonStuff = $.getJSON(serverURL+"/appointment?netlink_id="+userLogin, function(){
       var temp = jsonStuff["responseText"];
       var temp2 = JSON.parse(temp);
-
-      console.log(Object.keys(temp2).length);
-      console.log(temp2[0]["netlink_id"]);
-
-      // temp2[]["date"].sort();
-
       var jsonLength = Object.keys(temp2).length;
+
+      // sort the appointments //
 
       $('#appointmentList').html("");
       for (var i = 0; i < jsonLength; i++) {
         $("#appointmentList").append('<li id="appointment'+i+'"></li>');
-        $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" with "+temp2[i]["physician"]);
+        $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
         $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
         
       } 
@@ -54,16 +50,23 @@ $(document).ready(function(){
     });
   });
 
-  // $('#submitButton').click(function(){
-  //   userLogin = $('#username').val();
-  //   userPassword = $('#password').val();
-  //   console.log(userLogin);
-  //   console.log(userPassword);
-  // });
+  $('#viewHistory').click(function(){
+    jsonFiestas = $.getJSON(serverURL+"/fiesta?netlink_id="+userLogin, function(){
+      var temp = jsonFiestas["responseText"];
+      var temp2 = JSON.parse(temp);
+      var jsonLength = Object.keys(temp2).length;
 
-//       $('#loginForm:#submitButton').click(function(){
-//            // go to home page. That selector isn't right either.
-//       })
+      // sort the appointments //
+
+      $('#historyList').html("");
+      for (var i = 0; i < jsonLength; i++) {
+        $("#historyList").append('<li id="fiesta'+i+'"></li>');
+        $("#fiesta"+i).html(temp2[i]["event_description"]+" at "+temp2[i]["event_time"]);
+        
+      } 
+
+    });
+  });
 });
 
 function verifyLogin(){
@@ -81,18 +84,6 @@ function verifyLogin(){
           window.location.href = '#homePage';
         }
     });
-    // .success(function(){  console.log("success"); })
-    // .error(function(){  console.log("error"); })
-    // .fail(function(){  console.log("fail"); 
-    // });
-
-      // statusCode: {
-      // 200: function(response){
-      //   var temp = jsonLogin["responseText"];
-      //   var temp2 = JSON.parse(temp);
-      //   window.location.href = '#homePage';
-      // },
-
 }
 
 function getDescription(){
