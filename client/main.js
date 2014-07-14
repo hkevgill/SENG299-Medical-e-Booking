@@ -12,6 +12,8 @@ var time;
 var description;
 var key;
 
+var apptFlag = true;
+
 var userLogin;
 var userPassword;
 
@@ -90,8 +92,19 @@ function sendAppointment(){
     url: serverURL+'/appointment',       
     data: JSON.stringify(data),
     dataType: 'json',
+    statusCode: {
+      200: function(response){
+        apptFlag = false;
+        window.location.href = '#confirmAppointmentPage';
+      }
+    },
+    complete: function(){
+      if(apptFlag == true){
+        alert("Appointment is already booked, please select a different time");
+      }
+    },
   });
-
+  apptFlag = true;
 }
 
 function deleteAppointment(){
