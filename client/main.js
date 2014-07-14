@@ -31,7 +31,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#viewAppoints, #confirmAppoint').click(function(){
+  $('#viewAppoints, #confirmAppoint, #cancelAppoint').click(function(){
     jsonStuff = $.getJSON(serverURL+"/appointment?netlink_id="+userLogin, function(){
       var temp = jsonStuff["responseText"];
       var temp2 = JSON.parse(temp);
@@ -44,8 +44,7 @@ $(document).ready(function(){
         $("#appointmentList").append('<li id="appointment'+i+'"></li>');
         $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
         $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
-        
-      } 
+        $("#appointment"+i).append('<button id="cancelAppoint">Cancel</button>');      } 
 
     });
   });
