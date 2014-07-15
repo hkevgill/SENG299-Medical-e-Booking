@@ -45,7 +45,6 @@ $(document).ready(function(){
         $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
         $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
         var cancelKey = temp2[i]["date"]+"/"+temp2[i]["physician"]+"/"+temp2[i]["time"];
-        console.log(cancelKey);
         $("#appointment"+i).append('<button onclick="cancelAppointment(\''+cancelKey+'\')">Cancel</button>');      
       } 
     });
@@ -70,15 +69,31 @@ $(document).ready(function(){
 });
 
 function cancelAppointment(thingKey){
+
+  // Delete appointment
+  $.ajax({
+    type: 'delete',
+    url: serverURL+'/appointment?key='+thingKey,
+  });
+
+
+  // Set slot booked back to false
+  var arr = thingKey.split("/");
+  var data = {booked:"false"};
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'put',
+    url: serverURL+'/slot?date='+arr[0]+'&time='+arr[2]+'&physician='+arr[1],
+    data: JSON.stringify(data),
+    dataType: 'json',
+  });
   
   // Can now perform appointment deletion with "thingKey" //
-
-  alert(thingKey);
 }
 
 function getPhysSlots(){
   time = 'hello';
-  console.log(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false");
   removeOptions(document.getElementById("select-time"));
   $("#select-time").append('<option value="1">Select a time</option>');
   $('#select-time').val(val);
@@ -87,7 +102,6 @@ function getPhysSlots(){
       var temp2 = JSON.parse(temp);
       var jsonLength = Object.keys(temp2).length;
       for (var i = 0; i < jsonLength; i++){
-        console.log(temp2[i]);
         $("#select-time").append("<option>"+temp2[i]["time"]+"</option>");
       }
     });
@@ -104,8 +118,6 @@ function verifyLogin(){
 
     userLogin = $('#username').val();
     userPassword = $('#password').val();
-    console.log(userLogin);
-    console.log(userPassword);
 
     jsonLogin = $.getJSON(serverURL+"/login?netlink_id="+userLogin, function(){
         var temp = jsonLogin["responseText"];
@@ -144,9 +156,7 @@ function isNumber(n) {
 function changeTime(){
   var selectTime = document.getElementById('select-time');
   time = selectTime.options[selectTime.selectedIndex].text;
-  console.log(time);
   $('#myApptTime').html(time);
-  console.log(isNumber(time));
 }
 
 function sendAppointment(){
