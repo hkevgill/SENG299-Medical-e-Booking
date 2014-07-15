@@ -67,12 +67,7 @@ function read(type, search, dataObj){
       console.log(JSON.stringify(err));
       completeResponse(dataObj, 500, "text", "")
     }else{
-      if(JSON.stringify(result) == "[]"){
-        console.log("Error: result not found for query" + JSON.stringify(search));
-        completeResponse(dataObj, 404, "json", "");
-      }else{
-        completeResponse(dataObj, 200, "json", JSON.stringify(result));
-      }
+      completeResponse(dataObj, 200, "json", JSON.stringify(result));
     }
   });
 }
