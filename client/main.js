@@ -32,7 +32,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#viewAppoints, #confirmAppoint, #cancelAppoint').click(function(){
+  $('#viewAppoints, #confirmAppoint').click(function(){
     jsonStuff = $.getJSON(serverURL+"/appointment?netlink_id="+userLogin, function(){
       var temp = jsonStuff["responseText"];
       var temp2 = JSON.parse(temp);
@@ -45,7 +45,9 @@ $(document).ready(function(){
         $("#appointmentList").append('<li id="appointment'+i+'"></li>');
         $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
         $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
-        $("#appointment"+i).append('<button id="cancelAppoint">Cancel</button>');      
+        var cancelKey = temp2[i]["date"]+"/"+temp2[i]["physician"]+"/"+temp2[i]["time"];
+        console.log(cancelKey);
+        $("#appointment"+i).append('<button onclick="cancelAppointment(\''+cancelKey+'\')">Cancel</button>');      
       } 
     });
   });
@@ -62,13 +64,18 @@ $(document).ready(function(){
       for (var i = 0; i < jsonLength; i++) {
         $("#historyList").append('<li id="fiesta'+i+'"></li>');
         $("#fiesta"+i).html(temp2[i]["event_description"]+":  "+temp2[i]["event_time"]);
-        
       } 
-
     });
   });
 
 });
+
+function cancelAppointment(thingKey){
+  
+  // Can now perform appointment deletion with "thingKey" //
+
+  alert(thingKey);
+}
 
 function getPhysSlots(){
   time = 'hello';
