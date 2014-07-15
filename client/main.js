@@ -8,9 +8,10 @@ var month = (today.getMonth()+1);
 var year = today.getFullYear();
 var fullDate = year+'-'+month+'-'+day;
 var phys;
-var time;
+var time = 'hello';
 var description;
 var key;
+var val = 'Select';
 
 var apptFlag = true;
 
@@ -70,8 +71,11 @@ $(document).ready(function(){
 });
 
 function getPhysSlots(){
+  time = 'hello';
   console.log(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false");
-  $("#select-time").html("'<option disabled selected>'Select a time'</option>'");
+  removeOptions(document.getElementById("select-time"));
+  $("#select-time").append('<option value="1">Select a time</option>');
+  $('#select-time').val(val);
     jsonSlots = $.getJSON(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false", function(){
       var temp = jsonSlots["responseText"];
       var temp2 = JSON.parse(temp);
@@ -81,7 +85,14 @@ function getPhysSlots(){
         $("#select-time").append("<option>"+temp2[i]["time"]+"</option>");
       }
     });
-};
+}
+
+function removeOptions(selectBox){
+  var i;
+  for(i=selectBox.options.length-1; i>=0; i--){
+    selectBox.remove(i);
+  }
+}
 
 function verifyLogin(){
 
@@ -120,17 +131,28 @@ function changePhys(){
   getPhysSlots();
 }
 
+function isNumber(n) { 
+  return /^-?[\d.]+(?:e-?\d+)?$/.test(n); 
+}
+
 function changeTime(){
   var selectTime = document.getElementById('select-time');
-  time = selectTime.options[selectTime.selectedIndex];
-  $('#myApptTime').html(time.text);
+  time = selectTime.options[selectTime.selectedIndex].text;
+  console.log(time);
+  $('#myApptTime').html(time);
+  console.log(isNumber(time));
 }
 
 function sendAppointment(){
 
-  key = fullDate+'/'+phys.text+'/'+time.text;
+  if(!isNumber(time)){
+    alert("A time has not been selected");
+    return;
+  }
 
-  var data = {key:key, date:fullDate, time:time.text, physician:phys.text, description:description, netlink_id:userLogin};
+  key = fullDate+'/'+phys.text+'/'+time;
+
+  var data = {key:key, date:fullDate, time:time, physician:phys.text, description:description, netlink_id:userLogin};
 
   $.ajax({
     contentType: 'applications/json',
@@ -207,7 +229,7 @@ function updateBookedSlot(){
   $.ajax({
     contentType: 'applications/json',
     type: 'put',
-    url: serverURL+'/slot?date='+fullDate+'&time='+time.text+'&physician='+phys.text,
+    url: serverURL+'/slot?date='+fullDate+'&time='+time+'&physician='+phys.text,
     data: JSON.stringify(data),
     dataType: 'json',
   });
@@ -220,7 +242,7 @@ function updateCancelledSlot(){
   $.ajax({
     contentType: 'applications/json',
     type: 'put',
-    url: serverURL+'/slot?date='+fullDate+'&time='+time.text+'&physician='+phys.text,
+    url: serverURL+'/slot?date='+fullDate+'&time='+time+'&physician='+phys.text,
     data: JSON.stringify(data),
     dataType: 'json',
   });
