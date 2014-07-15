@@ -140,6 +140,7 @@ function sendAppointment(){
     dataType: 'json',
     statusCode: {
       200: function(response){
+        updateBookedSlot();
         apptFlag = false;
         window.location.href = '#confirmAppointmentPage';
       }
@@ -158,6 +159,7 @@ function deleteAppointment(){
     type: 'delete',
     url: serverURL+'/appointment?key='+key,
   });
+  updateCancelledSlot();
 }
 
 function sendAppointmentFiesta(){
@@ -173,6 +175,18 @@ function sendAppointmentFiesta(){
   });
 }
 
+function sendSlot(){
+  var data = {date:"2014-7-14", time:"0900", physician:"DrJones", booked:"false"};
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'post',
+    url: serverURL+'/slot',
+    data: JSON.stringify(data),
+    dataType: 'json',
+  });
+}
+
 function sendLoginFiesta(){
 
   var fies = {event_description:'Logged in', netlink_id:userLogin};
@@ -182,6 +196,32 @@ function sendLoginFiesta(){
     type: 'post',
     url: serverURL+'/fiesta',
     data: JSON.stringify(fies),
+    dataType: 'json',
+  });
+}
+
+function updateBookedSlot(){
+
+  var data = {booked:"true"};
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'put',
+    url: serverURL+'/slot?date='+fullDate+'&time='+time.text+'&physician='+phys.text,
+    data: JSON.stringify(data),
+    dataType: 'json',
+  });
+}
+
+function updateCancelledSlot(){
+
+  var data = {booked:"false"};
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'put',
+    url: serverURL+'/slot?date='+fullDate+'&time='+time.text+'&physician='+phys.text,
+    data: JSON.stringify(data),
     dataType: 'json',
   });
 }
