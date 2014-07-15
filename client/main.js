@@ -71,7 +71,7 @@ $(document).ready(function(){
 
 function getPhysSlots(){
   console.log(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false");
-  $("#select-time").html("");
+  $("#select-time").html("'<option disabled selected>'Select a time'</option>'");
     jsonSlots = $.getJSON(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false", function(){
       var temp = jsonSlots["responseText"];
       var temp2 = JSON.parse(temp);
