@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-#import requests
+import requests
+import json
 
-targeturl = 'http://127.0.0.1'
+targeturl = 'http://127.0.0.1:8888'
 targethandler = '/slot'
 
 def main():
@@ -12,10 +13,17 @@ def main():
 	hour = 12
 	minute = 00
 
-	physicians = ['Dr. Dank', 'Dr. Swag', 'Dr. Yolo', 'Dr. Fresh']
+	physicians = ['DrJones', 'DrMeyer', 'DrThompson', 'DrPeters']
 
 	for physician in physicians:
-		while(year == 2014):
+		print physician
+		year = 2014
+		month = 07
+		date = 15
+		hour = 12
+		minute = 00
+
+		while(month < 8):
 
 			data = {}
 			headers = {}
@@ -25,25 +33,28 @@ def main():
 				minutestr = '0' + minutestr
 
 			hourstr = str(hour)
-			if hourstr < 10:
+			if hour < 10:
 				hourstr = '0' + hourstr
 
 			datestr = str(date)
-			if date < 10:
-				datestr = '0' + datestr
+			# if date < 10:
+			# 	datestr = '0' + datestr
 
 			monthstr = str(month)
-			if month < 10:
-				monthstr = '0' + monthstr
+			# if month < 10:
+			# 	monthstr = '0' + monthstr
 
 			data['date'] = str(year) + '-' + monthstr + '-' + datestr
-			data['time'] = hourstr + ':' + minutestr
+			data['time'] = hourstr + minutestr
 			data['physician'] = physician
+			data['booked'] = 'false'
 
 			headers['Content-Type'] = "application/json"
 
-			#if hour < 18 and hour > 8:
-				#response = requests.post(targeturl + targethandler, params=data, headers=headers)	
+			if hour < 18 and hour > 8:
+				print data
+				response = requests.post(targeturl + targethandler, data=json.dumps(data), headers=headers)
+				print response.status_code
 
 			# Fix time
 			minute = minute + 15
@@ -54,11 +65,11 @@ def main():
 					hour = hour % 24
 					date = date + 1
 					if date > 28:
-			                        date = date % 28
-			                        month = month + 1
-        			                if month > 12:
-                			                month = month % 12
-                	        		        year = year + 1
+						date = date % 28
+						month = month + 1
+						if month > 12:
+							month = month % 12
+							year = year + 1
 
 
 
