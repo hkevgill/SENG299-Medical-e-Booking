@@ -31,7 +31,7 @@ var schemas = {
     date: "string",
     time: "string",
     physician: "string",
-    booked: "boolean"
+    booked: "string"
   })
 };
 

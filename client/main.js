@@ -18,7 +18,7 @@ var userLogin;
 var userPassword;
 
 $(document).ready(function(){
-  $("#datepicker").datepicker({ minDate: 0 });
+  // $("#datepicker").datepicker({ minDate: 0 });
   $('#datepicker').datepicker({
     dateFormat: 'yy-mm-dd',        
     inline: true,
@@ -44,8 +44,8 @@ $(document).ready(function(){
         $("#appointmentList").append('<li id="appointment'+i+'"></li>');
         $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
         $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
-        $("#appointment"+i).append('<button id="cancelAppoint">Cancel</button>');      } 
-
+        $("#appointment"+i).append('<button id="cancelAppoint">Cancel</button>');      
+      } 
     });
   });
 
@@ -66,7 +66,22 @@ $(document).ready(function(){
 
     });
   });
+
 });
+
+function getPhysSlots(){
+  console.log(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false");
+  $("#select-time").html("");
+    jsonSlots = $.getJSON(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false", function(){
+      var temp = jsonSlots["responseText"];
+      var temp2 = JSON.parse(temp);
+      var jsonLength = Object.keys(temp2).length;
+      for (var i = 0; i < jsonLength; i++){
+        console.log(temp2[i]);
+        $("#select-time").append("<option>"+temp2[i]["time"]+"</option>");
+      }
+    });
+};
 
 function verifyLogin(){
 
@@ -95,15 +110,19 @@ function getDescription(){
   $('#myRfV').html(description);
 }
 
-function changeSelection(){
+function changePhys(){
   var selectPhys = document.getElementById('select-physician');
   phys = selectPhys.options[selectPhys.selectedIndex];
 
-  var selectTime = document.getElementById('select-time');
-  time = selectTime.options[selectTime.selectedIndex];
-
   $('#myDate').html(fullDate);
   $('#myPhys').html(phys.text);
+
+  getPhysSlots();
+}
+
+function changeTime(){
+  var selectTime = document.getElementById('select-time');
+  time = selectTime.options[selectTime.selectedIndex];
   $('#myApptTime').html(time.text);
 }
 

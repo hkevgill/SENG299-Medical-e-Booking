@@ -37,7 +37,9 @@ function slotHandler(dataObj){
   // Handle GET request
   if(dataObj.request.method == "GET"){
     // This means we want to search for all slots where booked = false
-    DAO.read("slot", {booked: false}, dataObj);
+    var urlparts = url.parse(dataObj.request.url, true);
+    var query = urlparts.query;
+    DAO.read("slot", query, dataObj);
   }
   // Handle POST request to create a new slot
   if(dataObj.request.method == "POST"){
