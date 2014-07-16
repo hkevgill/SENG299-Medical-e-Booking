@@ -1,12 +1,6 @@
-body{
+html,body{
 	text-align:center;
- }
-
-.centerCal{
-	display:inline-block;
-	margin-left:auto;
-	margin-right:auto;
-	text-align:left;
+	height: auto;
  }
 
  .centerField{
@@ -16,4 +10,17 @@ body{
 
  .inline-p{
  	display: inline;
+ }
+
+ .ui-content{
+ 	background-color: white;
+ }
+
+ #datepicker-center{
+ 	background-color: white;
+ 	display: inline-block;
+ }
+
+ .ui-btn-left{
+ 	color: blue;
  }

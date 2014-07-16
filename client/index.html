@@ -57,6 +57,7 @@
     <div data-role="page" id="homePage">
 
       <div data-role="header"> <!-- Start Header -->
+        <a href="#loginPage" onclick="clearCredentials()" class="ui-btn-left" data-icon="arrow-l" data-iconpos="Logout">Logout</a>
         <h1>Home</h1>
       </div> <!-- End Header -->
 
@@ -88,8 +89,12 @@
         <h1>Appointment Date</h1>
       </div> <!-- End Header -->
 
-      <div data-role="main" id="datepicker" class="centerCal"> <!-- Start Main -->
+      <div data-role="main" class="ui-content"> <!-- Start Main -->
         <h2 align="center">Select a Day</h2>
+        <div id="datepicker-center">
+          <div id="datepicker">
+          </div>
+        </div>
       </div> <!-- End Main -->
 
       <div data-role="footer"> <!-- Start Footer -->
@@ -109,7 +114,7 @@
         <h1>View Appointments</h1>
       </div> <!-- End Header -->
 
-      <div data-role="main"> <!-- Start Main -->
+      <div data-role="main" class="ui-content"> <!-- Start Main -->
         <ul id="appointmentList"> 
         </ul>
       </div> <!-- End Main -->
@@ -131,7 +136,7 @@
         <h1>Check Account History</h1>
       </div> <!-- End Header -->
 
-      <div data-role="main"> <!-- Start Main -->
+      <div data-role="main" class="ui-content"> <!-- Start Main -->
         <ul id="historyList"> 
         </ul>
       </div> <!-- End Main -->
@@ -153,7 +158,7 @@
         <a id="bookAppointment" class="ui-btn-right" data-icon="arrow-r" onclick="sendAppointment()" data-iconpos="notext" data-direction="forward">Next</a>
       </div> <!-- End Header -->
 
-      <div data-role="main"> <!-- Start Main -->
+      <div data-role="main" class="ui-content"> <!-- Start Main -->
         <div data-role="fieldcontain" class="centerField">
           <label for="select-physician" class="select">Physician:</label>
           <select name="select-physician" onChange="changePhys()" id="select-physician">
@@ -168,22 +173,6 @@
           <label for="select-time" class="select">Appointment Time:</label>
           <select name="select-time" onChange="changeTime()" id="select-time">
             <option value="1">Select a Time</option>
-<!--             <option value="8:30">0830</option>
-            <option value="9:00">0900</option>
-            <option value="9:30">0930</option>
-            <option value="10:00">1000</option>
-            <option value="10:30">1030</option>
-            <option value="11:00">1100</option>
-            <option value="11:30">1130</option>
-            <option value="12:00">1200</option>
-            <option value="12:30">1230</option>
-            <option value="13:00">1300</option>
-            <option value="13:30">1330</option>
-            <option value="14:00">1400</option>
-            <option value="14:30">1430</option>
-            <option value="15:00">1500</option>
-            <option value="15:30">1530</option>
-            <option value="16:00">1600</option> -->
           </select>
         </div>
         <div data-role="fieldcontain" class="centerField">
@@ -212,7 +201,7 @@
 
       </div> <!-- End Header -->
 
-      <div data-role="main"> <!-- Start Main -->
+      <div data-role="main" class="ui-content"> <!-- Start Main -->
         <p class="inline-p">Physician: <p id="myPhys" class="inline-p"></p></p>
         <p class="inline-p">Date: <p id="myDate" class="inline-p"></p></p>
         <p class="inline-p">Appointment Time: <p id="myApptTime" class="inline-p"></p></p>

@@ -18,6 +18,8 @@ var apptFlag = true;
 var userLogin;
 var userPassword;
 
+// Executes after the DOM is ready, loads datepicker and 
+// updates view appointments page, also gets fiestas for history page
 $(document).ready(function(){
   $('#datepicker').datepicker({
     dateFormat: 'yy-mm-dd',        
@@ -51,6 +53,14 @@ $(document).ready(function(){
 
 });
 
+// Clears credentials on Logout
+function clearCredentials(){
+  $('#username').val('');
+  $('#password').val('');
+}
+
+// Deletes appointments upon clicking cancel appointment,
+// Logs deletion as a fiesta for history
 function cancelAppointment(thingKey, listNum){
 
   // Delete appointment
@@ -71,9 +81,12 @@ function cancelAppointment(thingKey, listNum){
     dataType: 'json',
   });
 
+  sendCancelledAppointmentFiesta();
+
   $("#appointment"+listNum).hide();
 }
 
+// Refreshes view appointments page
 function refreshViewPage(){
     jsonStuff = $.getJSON(serverURL+"/appointment?netlink_id="+userLogin, function(){
     var temp = jsonStuff["responseText"];
@@ -103,6 +116,8 @@ function refreshViewPage(){
   });
 }
 
+// Gets the time slots available for each physician and updates
+// the dropdown time slots on the book appointment page
 function getPhysSlots(){
   time = 'hello';
   removeOptions(document.getElementById("select-time"));
@@ -129,7 +144,7 @@ function getPhysSlots(){
         $("#select-time").append("<option>"+temp2[i]["time"]+"</option>");
       }
     });
-    $('#select-time-button > span').html('Select a time');
+    $('#select-time-button > span').html('Select a Time');
 }
 
 function removeOptions(selectBox){
@@ -139,6 +154,9 @@ function removeOptions(selectBox){
   }
 }
 
+
+// Verifies that user logging in exists, otherwise username or password
+// is incorrect
 function verifyLogin(){
 
     userLogin = $('#username').val();
@@ -159,11 +177,14 @@ function verifyLogin(){
     });
 }
 
+
+// Get the reason for visit and display it on confirm page
 function getDescription(){
   description = document.getElementById("reason").value;
   $('#myRfV').html(description);
 }
 
+// Get the physician from dropdown and display on confirm page along with date
 function changePhys(){
   var selectPhys = document.getElementById('select-physician');
   phys = selectPhys.options[selectPhys.selectedIndex];
@@ -174,16 +195,20 @@ function changePhys(){
   getPhysSlots();
 }
 
+// RegEx to check if it is a number, returns true or false
 function isNumber(n) { 
   return /^-?[\d.]+(?:e-?\d+)?$/.test(n); 
 }
 
+// Get the time from dropdown and display on confirm page
 function changeTime(){
   var selectTime = document.getElementById('select-time');
   time = selectTime.options[selectTime.selectedIndex].text;
   $('#myApptTime').html(time);
 }
 
+// Once user has selected appointment, this function sends the information
+// to the database and creates the appointment
 function sendAppointment(){
 
   if(!isNumber(time)){
@@ -217,6 +242,8 @@ function sendAppointment(){
   apptFlag = true;
 }
 
+// If on the confirm page a user no longer wants appointment and goes back,
+// Appointment is no longer booked (reserved) and is deleted.
 function deleteAppointment(){
   $.ajax({
     type: 'delete',
@@ -225,6 +252,21 @@ function deleteAppointment(){
   updateCancelledSlot();
 }
 
+// Not used, code to create time slots. Time slots were created using python
+// and imitating a mock oscar interface
+function sendSlot(){
+  var data = {date:"2014-7-14", time:"0900", physician:"DrJones", booked:"false"};
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'post',
+    url: serverURL+'/slot',
+    data: JSON.stringify(data),
+    dataType: 'json',
+  });
+}
+
+// Logs when user confirms the booking of their appointment for history
 function sendAppointmentFiesta(){
 
   var fies = {event_description:'Booked an appointment', netlink_id:userLogin};
@@ -238,18 +280,7 @@ function sendAppointmentFiesta(){
   });
 }
 
-function sendSlot(){
-  var data = {date:"2014-7-14", time:"0900", physician:"DrJones", booked:"false"};
-
-  $.ajax({
-    contentType: 'applications/json',
-    type: 'post',
-    url: serverURL+'/slot',
-    data: JSON.stringify(data),
-    dataType: 'json',
-  });
-}
-
+// Logs the users login for history
 function sendLoginFiesta(){
 
   var fies = {event_description:'Logged in', netlink_id:userLogin};
@@ -263,6 +294,20 @@ function sendLoginFiesta(){
   });
 }
 
+// Logs when user cancelled an appointment for history
+function sendCancelledAppointmentFiesta(){
+  var fies = {event_description:'Cancelled an appointment', netlink_id:userLogin};
+
+  $.ajax({
+    contentType: 'applications/json',
+    type: 'post',
+    url: serverURL+'/fiesta',
+    data: JSON.stringify(fies),
+    dataType: 'json',
+  });
+}
+
+// When user books appointments, updates slot to booked in DB
 function updateBookedSlot(){
 
   var data = {booked:"true"};
@@ -276,6 +321,7 @@ function updateBookedSlot(){
   });
 }
 
+// When user cancels appointment, updates slot to not booked in DB.
 function updateCancelledSlot(){
 
   var data = {booked:"false"};
