@@ -32,22 +32,7 @@ $(document).ready(function(){
   });
 
   $('#viewAppoints, #confirmAppoint').click(function(){
-    jsonStuff = $.getJSON(serverURL+"/appointment?netlink_id="+userLogin, function(){
-      var temp = jsonStuff["responseText"];
-      var temp2 = JSON.parse(temp);
-      var jsonLength = Object.keys(temp2).length;
-
-      // sort the appointments //
-
-      $('#appointmentList').html("");
-      for (var i = 0; i < jsonLength; i++) {
-        $("#appointmentList").append('<li id="appointment'+i+'"></li>');
-        $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
-        $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
-        var cancelKey = temp2[i]["date"]+"/"+temp2[i]["physician"]+"/"+temp2[i]["time"];
-        $("#appointment"+i).append('<button onclick="cancelAppointment(\''+cancelKey+'\')">Cancel</button>');      
-      } 
-    });
+    refreshViewPage();
   });
 
   $('#viewHistory').click(function(){
@@ -56,11 +41,9 @@ $(document).ready(function(){
       var temp2 = JSON.parse(temp);
       var jsonLength = Object.keys(temp2).length;
 
-      // sort the appointments //
-
       $('#historyList').html("");
       for (var i = 0; i < jsonLength; i++) {
-        $("#historyList").append('<li id="fiesta'+i+'"></li>');
+        $("#historyList").prepend('<li id="fiesta'+i+'"></li>');
         $("#fiesta"+i).html(temp2[i]["event_description"]+":  "+temp2[i]["event_time"]);
       } 
     });
@@ -68,14 +51,13 @@ $(document).ready(function(){
 
 });
 
-function cancelAppointment(thingKey){
+function cancelAppointment(thingKey, listNum){
 
   // Delete appointment
   $.ajax({
     type: 'delete',
     url: serverURL+'/appointment?key='+thingKey,
   });
-
 
   // Set slot booked back to false
   var arr = thingKey.split("/");
@@ -88,8 +70,37 @@ function cancelAppointment(thingKey){
     data: JSON.stringify(data),
     dataType: 'json',
   });
-  
-  // Can now perform appointment deletion with "thingKey" //
+
+  $("#appointment"+listNum).hide();
+}
+
+function refreshViewPage(){
+    jsonStuff = $.getJSON(serverURL+"/appointment?netlink_id="+userLogin, function(){
+    var temp = jsonStuff["responseText"];
+    var temp2 = JSON.parse(temp);
+    var jsonLength = Object.keys(temp2).length;
+
+    temp2.sort(function(a, b){
+      if(a['time'] > b['time']){
+        return -1;
+      }
+      if(a['time'] == b['time']){
+        return 0;
+      }
+      if(a['time'] < b['time']){
+        return 1;
+      }
+    });
+
+    $('#appointmentList').html("");
+    for (var i = 0; i < jsonLength; i++) {
+      $("#appointmentList").append('<li id="appointment'+i+'"></li>');
+      $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
+      $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
+      var cancelKey = temp2[i]["date"]+"/"+temp2[i]["physician"]+"/"+temp2[i]["time"];
+      $("#appointment"+i).append('<button onclick="cancelAppointment(\''+cancelKey+'\', '+i+');">Cancel</button>');      
+    } 
+  });
 }
 
 function getPhysSlots(){
@@ -100,6 +111,19 @@ function getPhysSlots(){
     jsonSlots = $.getJSON(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false", function(){
       var temp = jsonSlots["responseText"];
       var temp2 = JSON.parse(temp);
+
+      temp2.sort(function(a, b){
+        if(a['time'] > b['time']){
+          return 1;
+        }
+        if(a['time'] == b['time']){
+          return 0;
+        }
+        if(a['time'] < b['time']){
+          return -1;
+        }
+      });
+
       var jsonLength = Object.keys(temp2).length;
       for (var i = 0; i < jsonLength; i++){
         $("#select-time").append("<option>"+temp2[i]["time"]+"</option>");
