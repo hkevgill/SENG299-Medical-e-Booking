@@ -129,6 +129,7 @@ function getPhysSlots(){
         $("#select-time").append("<option>"+temp2[i]["time"]+"</option>");
       }
     });
+    $('#select-time-button > span').html('Select a time');
 }
 
 function removeOptions(selectBox){
