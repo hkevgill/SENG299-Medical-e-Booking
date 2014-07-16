@@ -11,7 +11,6 @@ var phys;
 var time = 'hello';
 var description;
 var key;
-var val = 'Select';
 
 var apptFlag = true;
 
@@ -122,7 +121,6 @@ function getPhysSlots(){
   time = 'hello';
   removeOptions(document.getElementById("select-time"));
   $("#select-time").append('<option value="1">Select a time</option>');
-  $('#select-time').val(val);
     jsonSlots = $.getJSON(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false", function(){
       var temp = jsonSlots["responseText"];
       var temp2 = JSON.parse(temp);
