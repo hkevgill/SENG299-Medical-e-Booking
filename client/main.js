@@ -45,7 +45,10 @@ $(document).ready(function(){
       $('#historyList').html("");
       for (var i = 0; i < jsonLength; i++) {
         $("#historyList").prepend('<li id="fiesta'+i+'"></li>');
-        $("#fiesta"+i).html(temp2[i]["event_description"]+":  "+temp2[i]["event_time"]);
+        var dateString = temp2[i]["event_time"].toString();
+        var yyyymmdd = dateString.split("T",2);
+        var tt = yyyymmdd[1].split(":",2);
+        $("#fiesta"+i).html(temp2[i]["event_description"]+" on "+yyyymmdd[0]+" at "+tt[0]+":"+tt[1]);
       } 
     });
   });
