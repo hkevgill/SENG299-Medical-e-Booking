@@ -23,6 +23,7 @@ $(document).ready(function(){
   $('#datepicker').datepicker({
     dateFormat: 'yy-mm-dd',        
     inline: true,
+    minDate: 0,
     onSelect: function(){
       day = $("#datepicker").datepicker('getDate').getDate();
       month = $("#datepicker").datepicker('getDate').getMonth() + 1;
@@ -33,16 +34,7 @@ $(document).ready(function(){
   });
 
   $('#viewAppoints, #confirmAppoint').click(function(){
-    $('#select-physician-button > span').html('Select a Physician');
-    $('#select-physician').val("def");
-    $('#select-time-button > span').html('Select a Time');
-    $('#select-time').val("1");
-    $('#reason').val('');
-    time = "h";
-    phys = "99";
-    description = "";
-    $('#myPhys').html(phys);
-    $('#myRfV').html(description);
+    resetBookAppointmentPage();
     refreshViewPage();
   });
 
@@ -96,6 +88,20 @@ function cancelAppointment(thingKey, listNum){
   sendCancelledAppointmentFiesta();
 
   $("#appointment"+listNum).hide();
+}
+
+// Resets book appointment page
+function resetBookAppointmentPage(){
+  $('#select-physician-button > span').html('Select a Physician');
+  $('#select-physician').val("def");
+  $('#select-time-button > span').html('Select a Time');
+  $('#select-time').val("1");
+  $('#reason').val('');
+  time = "h";
+  phys = "99";
+  description = "";
+  $('#myPhys').html(phys);
+  $('#myRfV').html(description);
 }
 
 // Refreshes view appointments page
