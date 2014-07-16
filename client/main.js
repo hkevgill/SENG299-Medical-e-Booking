@@ -8,7 +8,7 @@ var month = (today.getMonth()+1);
 var year = today.getFullYear();
 var fullDate = year+'-'+month+'-'+day;
 var phys;
-var time = 'hello';
+var time = 'h';
 var description;
 var key;
 
@@ -33,6 +33,16 @@ $(document).ready(function(){
   });
 
   $('#viewAppoints, #confirmAppoint').click(function(){
+    $('#select-physician-button > span').html('Select a Physician');
+    $('#select-physician').val("def");
+    $('#select-time-button > span').html('Select a Time');
+    $('#select-time').val("1");
+    $('#reason').val('');
+    time = "h";
+    phys = "99";
+    description = "";
+    $('#myPhys').html(phys);
+    $('#myRfV').html(description);
     refreshViewPage();
   });
 
@@ -124,7 +134,7 @@ function getPhysSlots(){
   time = 'hello';
   removeOptions(document.getElementById("select-time"));
   $("#select-time").append('<option value="1">Select a time</option>');
-    jsonSlots = $.getJSON(serverURL+"/slot?physician="+phys.text+"&date="+fullDate+"&booked=false", function(){
+    jsonSlots = $.getJSON(serverURL+"/slot?physician="+phys+"&date="+fullDate+"&booked=false", function(){
       var temp = jsonSlots["responseText"];
       var temp2 = JSON.parse(temp);
 
@@ -188,10 +198,10 @@ function getDescription(){
 // Get the physician from dropdown and display on confirm page along with date
 function changePhys(){
   var selectPhys = document.getElementById('select-physician');
-  phys = selectPhys.options[selectPhys.selectedIndex];
+  phys = selectPhys.options[selectPhys.selectedIndex].text;
 
   $('#myDate').html(fullDate);
-  $('#myPhys').html(phys.text);
+  $('#myPhys').html(phys);
 
   getPhysSlots();
 }
@@ -213,13 +223,17 @@ function changeTime(){
 function sendAppointment(){
 
   if(!isNumber(time)){
-    alert("A time has not been selected");
+    alert("Physician or Appointment Time has not been selected.");
+    return;
+  }
+  if(isNumber(phys)){
+    alert("Physician or Appointment Time has not been selected.");
     return;
   }
 
-  key = fullDate+'/'+phys.text+'/'+time;
+  key = fullDate+'/'+phys+'/'+time;
 
-  var data = {key:key, date:fullDate, time:time, physician:phys.text, description:description, netlink_id:userLogin};
+  var data = {key:key, date:fullDate, time:time, physician:phys, description:description, netlink_id:userLogin};
 
   $.ajax({
     contentType: 'applications/json',
@@ -316,7 +330,7 @@ function updateBookedSlot(){
   $.ajax({
     contentType: 'applications/json',
     type: 'put',
-    url: serverURL+'/slot?date='+fullDate+'&time='+time+'&physician='+phys.text,
+    url: serverURL+'/slot?date='+fullDate+'&time='+time+'&physician='+phys,
     data: JSON.stringify(data),
     dataType: 'json',
   });
@@ -330,7 +344,7 @@ function updateCancelledSlot(){
   $.ajax({
     contentType: 'applications/json',
     type: 'put',
-    url: serverURL+'/slot?date='+fullDate+'&time='+time+'&physician='+phys.text,
+    url: serverURL+'/slot?date='+fullDate+'&time='+time+'&physician='+phys,
     data: JSON.stringify(data),
     dataType: 'json',
   });
