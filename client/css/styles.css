@@ -5,9 +5,9 @@ body{
  }
 
  li{
- 	/*overflow:hidden;*/
- 	white-space: wrap;
- 	text-overflow:wrap;
+ 	word-wrap: normal !important;
+ 	white-space: normal !important;
+ 	text-overflow: ellipsis !important;
  }
 
  .centerField{
