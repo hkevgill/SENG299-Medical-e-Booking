@@ -44,6 +44,18 @@ $(document).ready(function(){
       var temp2 = JSON.parse(temp);
       var jsonLength = Object.keys(temp2).length;
 
+      temp2.sort(function(a, b){
+        if(a['event_time'] < b['event_time']){
+          return -1;
+        }
+        if(a['event_time'] == b['event_time']){
+          return 0;
+        }
+        if(a['event_time'] > b['event_time']){
+          return 1;
+        }
+      });
+
       $('#historyList').html("");
       for (var i = 0; i < jsonLength; i++) {
         $("#historyList").prepend('<li class="viewFiestas" id="fiesta'+i+'"></li>');
