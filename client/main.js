@@ -125,13 +125,25 @@ function refreshViewPage(){
     var jsonLength = Object.keys(temp2).length;
 
     temp2.sort(function(a, b){
-      if(a['time'] > b['time']){
+      if(a['time'] < b['time']){
         return -1;
       }
       if(a['time'] == b['time']){
         return 0;
       }
-      if(a['time'] < b['time']){
+      if(a['time'] > b['time']){
+        return 1;
+      }
+    });
+
+    temp2.sort(function(a, b){
+      if(a['date'] < b['date']){
+        return -1;
+      }
+      if(a['date'] == b['date']){
+        return 0;
+      }
+      if(a['date'] > b['date']){
         return 1;
       }
     });
