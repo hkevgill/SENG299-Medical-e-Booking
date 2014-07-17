@@ -46,7 +46,7 @@ $(document).ready(function(){
 
       $('#historyList').html("");
       for (var i = 0; i < jsonLength; i++) {
-        $("#historyList").prepend('<li id="fiesta'+i+'"></li>');
+        $("#historyList").prepend('<li class="viewFiestas" id="fiesta'+i+'"></li>');
         var dateString = temp2[i]["event_time"].toString();
         var yyyymmdd = dateString.split("T",2);
         var tt = yyyymmdd[1].split(":",2);
@@ -125,7 +125,7 @@ function refreshViewPage(){
 
     $('#appointmentList').html("");
     for (var i = 0; i < jsonLength; i++) {
-      $("#appointmentList").append('<li id="appointment'+i+'"></li>');
+      $("#appointmentList").append('<li class="viewAppts" id="appointment'+i+'"></li>');
       $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
       $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
       var cancelKey = temp2[i]["date"]+"/"+temp2[i]["physician"]+"/"+temp2[i]["time"];
