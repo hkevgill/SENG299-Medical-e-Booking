@@ -46,7 +46,7 @@ $(document).ready(function(){
 
       $('#historyList').html("");
       for (var i = 0; i < jsonLength; i++) {
-        $("#historyList").prepend('<li class="viewFiestas" id="fiesta'+i+'"></li>');
+        $("#historyList").prepend('<li class="viewFiestas ui-li ui-li-static ui-btn-up-c" id="fiesta'+i+'"></li>');
         var dateString = temp2[i]["event_time"].toString();
         var yyyymmdd = dateString.split("T",2);
         var tt = yyyymmdd[1].split(":",2);
@@ -127,15 +127,15 @@ function refreshViewPage(){
 
     for (var i = 0; i < jsonLength; i++) {
 
-      $("#appointmentList").append('<li class="viewAppts" id="appointment'+i+'"></li>');
+      $("#appointmentList").append('<li class="viewAppts ui-li ui-li-static ui-btn-up-c" id="appointment'+i+'"></li>');
 
       if(i == 0){ $("#appointment"+i).addClass("ui-first-child")};
       if(i == jsonLength-1){ $("#appointment"+i).addClass("ui-last-child")};
 
-      $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
+      $("#appointment"+i).html(temp2[i]["date"]+"<br>"+temp2[i]["time"]+" with "+temp2[i]["physician"]);
       $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
       var cancelKey = temp2[i]["date"]+"/"+temp2[i]["physician"]+"/"+temp2[i]["time"];
-      $("#appointment"+i).append('<button onclick="cancelAppointment(\''+cancelKey+'\', '+i+');">Cancel</button>');      
+      $("#appointment"+i).append('<button class="cancelButton" onclick="cancelAppointment(\''+cancelKey+'\', '+i+');">Cancel</button>');      
     } 
   });
 }
