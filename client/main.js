@@ -123,9 +123,15 @@ function refreshViewPage(){
       }
     });
 
-    $('#appointmentList').html("");
+    $('#appointmentList').html('');
+
     for (var i = 0; i < jsonLength; i++) {
+
       $("#appointmentList").append('<li class="viewAppts" id="appointment'+i+'"></li>');
+
+      if(i == 0){ $("#appointment"+i).addClass("ui-first-child")};
+      if(i == jsonLength-1){ $("#appointment"+i).addClass("ui-last-child")};
+
       $("#appointment"+i).html("Appointment on "+temp2[i]["date"]+" at "+temp2[i]["time"]+" with "+temp2[i]["physician"]);
       $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
       var cancelKey = temp2[i]["date"]+"/"+temp2[i]["physician"]+"/"+temp2[i]["time"];

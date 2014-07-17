@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 <!--      <script src="phonegap.js" type="text/javascript" charset="utf-8"></script> -->
 
-    <link rel="stylesheet" href="jq/jquery.mobile-1.4.2.min.css">
-    <link rel="stylesheet" href="css/styles.css">
     <link href="css/ui-lightness/jquery-ui-1.10.4.css" rel="stylesheet">
 
     <script type="text/javascript" src="jq/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="jq/jquery.mobile-1.4.2.min.js"></script>
     <script src="jq/jquery-ui-1.10.4.js"></script>
+    <link rel="stylesheet" href="jq/jquery.mobile-1.4.2.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 
   </head>
   <body>
@@ -113,7 +113,7 @@
       </div> <!-- End Header -->
 
       <div data-role="main" class="ui-content"> <!-- Start Main -->
-        <ul id="appointmentList"> 
+        <ul id="appointmentList" data-role="listview" data-inset="true"> 
         </ul>
       </div> <!-- End Main -->
 
@@ -135,7 +135,7 @@
       </div> <!-- End Header -->
 
       <div data-role="main" class="ui-content"> <!-- Start Main -->
-        <ul id="historyList"> 
+        <ul id="historyList" data-role="listview" class="ui-listview"> 
         </ul>
       </div> <!-- End Main -->
 
