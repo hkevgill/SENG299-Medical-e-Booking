@@ -64,3 +64,11 @@ body{
 	float: right;
 	position: relative;
 }
+
+.ui-footer{
+	display: none;
+}
+
+.ui-page{
+	background-color: #336699;
+}
