@@ -23,6 +23,11 @@ body{
 
  .ui-content{
  	background-color: #336699;
+ 	border: none !important;
+ }
+
+ .ui-header{
+ 	border: none !important;
  }
 
  #datepicker-center{
