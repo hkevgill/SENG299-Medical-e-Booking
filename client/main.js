@@ -1,6 +1,7 @@
 // This is the main file for javascript functions used by the client
 
-var serverURL = "http://127.0.0.1:8888"
+// var serverURL = "http://127.0.0.1:8888"
+var serverURL = "http://24.69.77.204:8888/" // Richard's server
 
 var today = new Date();
 var day = today.getDate();

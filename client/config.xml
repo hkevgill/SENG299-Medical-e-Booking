@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<widget xmlns="http://www.w3.org/ns/widgets"
+	xmlns:gap="http://phonegap.com/ns/1.0"
+	id="UVic_Appointment_eBooker"
+	version = "1.0.0">
+
+	<!-- <preference name="phonegap-version" value="2.9.0" /> -->
+	<preference name="orientation" value="portrait" />
+	<preference name="load-url-timeout" value="12000" />
+
+	<name>UVic Appointment eBooker</name>
+	<description>UVic Appointment eBooker</description>
+	<author>
+		Chris Cook, Kevin Gill, and Richard Klaus
+	</author>
+
+</widget>
+
