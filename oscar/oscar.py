@@ -2,28 +2,32 @@
 
 import requests
 import json
+import time
 
 targeturl = 'http://127.0.0.1:8888'
 targethandler = '/slot'
 
 def main():
 	year = 2014
-	month = 07
-	date = 15
+	month = 08
+	date = 01
 	hour = 12
 	minute = 00
 
 	physicians = ['DrJones', 'DrMeyer', 'DrThompson', 'DrPeters']
 
-	for physician in physicians:
-		print physician
-		year = 2014
-		month = 07
-		date = 15
-		hour = 12
-		minute = 00
+	while(month < 8):
 
-		while(month < 8):
+		time.sleep(900)
+
+		for physician in physicians:
+			print physician
+			year = 2014
+			month = 07
+			date = 15
+			hour = 12
+			minute = 00
+
 
 			data = {}
 			headers = {}

@@ -1,7 +1,7 @@
 // This is the main file for javascript functions used by the client
 
 // var serverURL = "http://127.0.0.1:8888"
-var serverURL = "http://24.69.77.204:8888/" // Richard's server
+var serverURL = "http://24.69.77.204:8888" // Richard's server
 
 var today = new Date();
 var day = today.getDate();
@@ -18,11 +18,11 @@ var apptFlag = true;
 var userLogin;
 var userPassword;
 
-// Executes after the DOM is ready, loads datepicker and 
+// Executes after the DOM is ready, loads datepicker and
 // updates view appointments page, also gets fiestas for history page
 $(document).ready(function(){
   $('#datepicker').datepicker({
-    dateFormat: 'yy-mm-dd',        
+    dateFormat: 'yy-mm-dd',
     inline: true,
     minDate: 0,
     onSelect: function(){
@@ -64,7 +64,7 @@ $(document).ready(function(){
         var yyyymmdd = dateString.split("T",2);
         var tt = yyyymmdd[1].split(":",2);
         $("#fiesta"+i).html(temp2[i]["event_description"]+" on "+yyyymmdd[0]+" at "+tt[0]+":"+tt[1]);
-      } 
+      }
       $("#historyList").listview("refresh");
     });
   });
@@ -157,8 +157,8 @@ function refreshViewPage(){
       $("#appointment"+i).html(temp2[i]["date"]+"<br>"+temp2[i]["time"]+" with "+temp2[i]["physician"]);
       $("#appointment"+i).append("<br>Reason: "+temp2[i]["description"]);
       var cancelKey = temp2[i]["date"]+"/"+temp2[i]["physician"]+"/"+temp2[i]["time"];
-      $("#appointment"+i).append('<button class="cancelButton" onclick="cancelAppointment(\''+cancelKey+'\', '+i+');">Cancel</button>');      
-    } 
+      $("#appointment"+i).append('<button class="cancelButton" onclick="cancelAppointment(\''+cancelKey+'\', '+i+');">Cancel</button>');
+    }
     $("#appointmentList").listview("refresh");
   });
 }
@@ -242,8 +242,8 @@ function changePhys(){
 }
 
 // RegEx to check if it is a number, returns true or false
-function isNumber(n) { 
-  return /^-?[\d.]+(?:e-?\d+)?$/.test(n); 
+function isNumber(n) {
+  return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
 }
 
 // Get the time from dropdown and display on confirm page
@@ -273,7 +273,7 @@ function sendAppointment(){
   $.ajax({
     contentType: 'applications/json',
     type: 'post',
-    url: serverURL+'/appointment',       
+    url: serverURL+'/appointment',
     data: JSON.stringify(data),
     dataType: 'json',
     statusCode: {
@@ -384,5 +384,3 @@ function updateCancelledSlot(){
     dataType: 'json',
   });
 }
-
-
